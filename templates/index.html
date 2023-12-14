@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Loading Example</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+
+<h1>Collector of information about games from Steam</h1>
+<h2>to start, click the "start process" button, and after loading the "view games" button</h2>
+<button id="startButton">Start Process</button>
+<div id="loading" style="display: none;">Loading... (it lasts about 5 minutes)</div>
+<div id="result"></div>
+
+<button onclick="location.href='/db'">View Games</button>
+
+<script>
+    $(document).ready(function() {
+        var processing = false;
+
+        $("#startButton").click(function() {
+            if (!processing) {
+                processing = true;
+                $("#loading").show();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/start_process',
+                    success: function(result) {
+                        $("#loading").hide();
+                        $("#result").text("Result: " + result);
+                        processing = false;
+                    },
+                    error: function() {
+                        $("#loading").hide();
+                        $("#result").text("Error occurred");
+                        processing = false;
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

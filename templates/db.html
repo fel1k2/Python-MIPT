@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games List</title>
+</head>
+<body>
+    <h1>Games List</h1>
+
+    <form method="post" action="/filter">
+        <label for="min_price">Min Price:</label>
+        <input type="text" name="min_price" id="min_price">
+
+        <label for="max_price">Max Price:</label>
+        <input type="text" name="max_price" id="max_price">
+
+        <input type="hidden" name="free_games" value="0">
+
+        <button type="submit">Filter</button>
+    </form>
+
+    <ul>
+        {% for game in games %}
+            <li>{{ game }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
